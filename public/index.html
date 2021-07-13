@@ -1,13 +1,28 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-  <title>Express</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+    <meta charset="utf-8">
+    <title>Socket.io Chat Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+<div class="container">
+    <h3>Socket.io Chat Example</h3>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="msgForm">Message: </label>
+            <input type="text" class="form-control" id="msgForm">
+        </div>
+        <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+    <div id="chatLogs"></div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    $(() => {
+        const socket = io();
+    });
+</script>
 </body>
-
 </html>
