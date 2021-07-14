@@ -22,6 +22,41 @@
 <script>
     $(() => {
         const socket = io();
+
+        socket.emit('login', {
+            name: makeRandomName(),
+            userid: 'test@test.com'
+        });
+
+        // 서버로부터의 메시지가 수신되면 ('login')
+        socket.on('login', data => {
+            $('#chatLogs').append('<div><strong>' + data + '</strong> has joined</div>');
+        });
+
+        // 서버로부터의 메시지가 수신되면 ('chat')
+        socket.on('chat', data => {
+            $('#chatLogs').append('<div><strong>' +  data.from.name + ': </strong> ' + data.msg + '</div>');
+        });
+
+        // Send 버튼이 클릭되면
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var $msgForm = $('#msgForm');
+
+            // 서버로 메시지를 전송한다.
+            socket.emit('chat', {msg: $msgForm.val()});
+            $msgForm.val('');
+        });
+
+
+        function makeRandomName() {
+            var name = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+            for (var i = 0; i < 3; i++) {
+                name += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return name;
+        }
     });
 </script>
 </body>
